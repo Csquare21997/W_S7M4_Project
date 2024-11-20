@@ -2,6 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import App from './App'
+import txt from  '../i18n/index.json'
 
 describe('Module 4 Project Tests', () => {
   describe('English Language', () => {
@@ -12,9 +13,23 @@ describe('Module 4 Project Tests', () => {
     */
     test(`TEXT_HEADING_CREATE_ACCOUNT is visible`, () => {
       render(<App lang="en" />)
-      expect(screen.getByText("Create an Account")).toBeVisible()
+      expect(screen.getByText(txt.en.TEXT_HEADING_CREATE_ACCOUNT)).toBeVisible()
     })
   })
+
+  //label
+  test(`Label_USERNAME is visible`, () => {
+    render(<App lang="en" />)
+    expect(screen.getByLabelText(txt.en.LABEL_USERNAME)).toBeVisible()
+  })
+})
+
+//placeholder_USERNAME
+  test(`PlaceHolder_USERNAME is visible`, () => {
+      render(<App lang="en" />)
+      expect(screen.getbyPlaceholderText(txt.en.PLACEHOLDER_USERNAME)).toBeVisible()
+    })
+  
   describe('Spanish Language', () => {
     /*
       👉 TASK 3
@@ -24,21 +39,29 @@ describe('Module 4 Project Tests', () => {
   })
   describe('getEntriesByKeyPrefix', () => {
     test('can extract the correct data', () => {
-    /*
-      👉 TASK 4 part 2
+  const obj = {
+    abc_1: "data_abc_1",
+    abc_2: "data_abc_2",
+    xyz_1: "data_xyz_1",
+    abc_3: "data_abc_3",
+  }
+  const expected = [
+    ["abc_1", "data_abc_1"],
+    ["abc_2", "data_abc_2"],
+    ["abc_3", "data_abc_3"],
 
-      Implement the function `getEntriesByKeyPrefix` below
-      and then come back here and write a few tests
-      to ensure it works as expected.
-
-      Although it should be noted that commonly,
-      the tests are written _before_ implementing
-      the function being tested.
-    */
+  ]
+  const expected2 = [
+    ["xyz_1", "data_xyz_1"],
+  ]
+  expect (getEntriesByKeyPrefix(obj, "abc")).toEqual (expected)
+  expect (getEntriesByKeyPrefix(obj, "xyz")).toEqual (expected2)
     })
   })
-})
+
 function getEntriesByKeyPrefix(obj, keyPrefix) {
+  return Object.entries(obj).flitrer(([key]) => key.split ('_')[0]=== keyPrefix  )
+  
   /*
     👉 TASK 4 part 1
 

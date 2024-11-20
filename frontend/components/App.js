@@ -27,6 +27,8 @@ export default function App({ lang = 'en' }) {
   const [failure, setFailure] = useState()
   const [submitAllowed, setSubmitAllowed] = useState(false)
 
+  const texts = txt [language]
+
   useEffect(() => {
     schemas.userSchema.isValid(values).then(setSubmitAllowed)
   }, [values])
@@ -64,7 +66,7 @@ export default function App({ lang = 'en' }) {
   return (
     <div>
       <h2>
-        Create an Account
+        {texts.TExt_Heading_Create_Account}
         <span onClick={() => setLanguage(language === 'en' ? 'esp' : 'en')}>
           {language === 'en' ? ' 🇺🇸' : ' 🇪🇸'}
         </span>
@@ -74,17 +76,17 @@ export default function App({ lang = 'en' }) {
         {failure && <h4 className="error">{failure}</h4>}
 
         <div className="inputGroup">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">{texts.label_Username}:</label>
           <input id="username" name="username" onChange={onChange} value={values.username} type="text" placeholder="Type username" />
           {errors.username && <div className="validation">{errors.username}</div>}
         </div>
 
         <div className="inputGroup">
           <fieldset>
-            <legend>Favorite language:</legend>
+            <legend>{texts.Text_FAV_LANG}</legend>
             <label>
               <input onChange={onChange} type="radio" name="favLanguage" value="javascript" checked={values.favLanguage == 'javascript'} />
-              JavaScript
+              {texts.TEXT_FAV_LANG_JS}
             </label>
             <label>
               <input onChange={onChange} type="radio" name="favLanguage" value="rust" checked={values.favLanguage == 'rust'} />
